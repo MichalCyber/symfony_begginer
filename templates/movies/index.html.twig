@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MoviesController!{% endblock %}
+{% block title %} Movies page {% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,16 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
+    {% if controller_name %}
+    <strong>Hello</strong> {{controller_name}}!
+{% else %}
+    <strong>Hello</strong> World! (no sign of title)
+{% endif %}
     <ul>
-        <li>Your controller at <code>C:/Programovanie/symfony_begginer/src/Controller/MoviesController.php</code></li>
-        <li>Your template at <code>C:/Programovanie/symfony_begginer/templates/movies/index.html.twig</code></li>
+        {% for movie in movies %}
+            <li>{{ movie }}</li>
+        {% endfor %}
+
     </ul>
 </div>
 {% endblock %}

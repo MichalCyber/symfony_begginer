@@ -1,0 +1,48 @@
+
+
+// composer create-project symfony/skeleton symfony_begginer 
+// vytvori jednoduch projekt v symfony git init
+ // iniciuje GIT git add .
+  // prida subory do git git commit -m "Initial Commit"
+  // Vytvor projekt v githube a daj prikaz git remote add origin https://github.com/MIchalCyber/symfony_begginer.git
+  // git branch -M main 
+  //git push -u origin main 
+  //composer require maker composer require symfony/maker-bundle --dev"
+   symfony console make:controler MoviesController // vytvori kontroler, Routes
+
+   symfony server:start -d // nastartuje server a mozes pokracovat v rovnakej konzole
+
+   Vytvorenie DB
+   composer require symfony/orm-pack
+   composer require --dev symfony/maker-bundle
+   symfony doctrine:database:create
+
+   symfony console // hladame v helpe
+   
+   Entity sa vytvaraju Classy pre manipulaciu s datami, vytvaraju getery a settery
+   symfony console make:entity Movie
+   symfony console make:entity Actor
+
+   DB migrations - znamena ze sa zoberu classy, ktore ssi vytvaral pomocou make:entity sa zmigruju do priecinka a vytvoria funckiu na vytvorenie table alebo drop table
+   - ale musi sa znovu spstut migracia
+   symfony console make:migration - vytvoris migraciu na nove entity do suboru
+   symfony console doctrine:migration:migrate - spustis prikazy, ktore su v tom subore
+   
+   Vytvorenie DB docker
+   docker-compose up
+
+   DUMMY data
+   composer require --dev doctrine/doctrine-fixtures-bundle
+   symfony console doctrine:fixtures:load [ vytvori to ti znovu nejake PHP subory src/datafixures davaj pozor, purgne ti to data v tabulkach ]
+
+  Vykreslenie DB dat 
+  public function index(EntityManagerInterface $em): Response
+    {
+        $repository = $em->getRepository(Movie::class);
+        $movie = $repository->findAll(); Select * from movies;
+        $movie = $repository->find(4); Select * from movies where id = 4;
+        $movie = $repository->findBy([],['id' => 'DESC']);
+
+        $movie = $movieRepository->findAll(); // vstavana funkccia, ktora vytiahne vsetko co mame v DB ulozene
+        dd($movie); // vykresli co je v DB
+
